@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 extern crate rand;
 extern crate nalgebra_glm as glm;
 
@@ -66,11 +68,9 @@ pub struct MPM {
 
 impl MPM {
     pub fn new() -> MPM {
-        let cells = Vec::new();
-        let mut particles = Vec::new();
         let mut mpm = MPM {
-            particles,
-            cells,
+            particles: Vec::new(),
+            cells: Vec::new(),
         };
         mpm.reset();
 
@@ -124,7 +124,7 @@ impl MPM {
                     let mass_contrib = weight * p.mass;
 
                     let cell_idx = cell_x.x as usize * CELL_DIM + cell_x.y as usize;
-                    if cell_idx < 0 || cell_idx >= self.cells.len() {
+                    if cell_idx >= self.cells.len() {
                         continue;
                     }
 
@@ -174,7 +174,7 @@ impl MPM {
                     let cell_x = glm::vec2(cell_idx.x + gx as u32 - 1,
                                            cell_idx.y + gy as u32 - 1);
                     let cell_idx = cell_x.x as usize * CELL_DIM + cell_x.y as usize;
-                    if cell_idx < 0 || cell_idx >= self.cells.len() {
+                    if cell_idx >= self.cells.len() {
                         continue;
                     }
 
